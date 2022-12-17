@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { CartService } from 'src/app/services/cart.service';
 import { StoreService } from 'src/app/services/store.service';
+import { WishlistService } from 'src/app/services/wishlist.service';
 
 const ROWS_HEIGHT: { [id: number]: number } = {
   1: 400,
@@ -25,7 +26,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   count = '12';
   productsSubscription: Subscription | undefined;
 
-  constructor(private cartService: CartService, private storeService: StoreService) { }
+  constructor(private cartService: CartService,
+    private storeService: StoreService,
+    private wishlistService: WishlistService
+  ) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -46,6 +50,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   onShowCategory(newCategory: string): void {
     this.category = newCategory;
     this.getProducts();
+  }
+
+  onAddToWishlist(product: Product): void {
+    this.wishlistService.addToWishlist({
+      product: product.image,
+      name: product.title,
+      price: product.price,
+      quantity: 1,
+      id: product.id
+    });
   }
 
   onAddToCart(product: Product): void {

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
@@ -9,24 +10,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartComponent implements OnInit {
 
-  cart: Cart = {
-    items: [
-      {
-        product: 'https://via.placeholder.com/150',
-        name: 'sneakers',
-        price: 150,
-        quantity: 1,
-        id: 1
-      },
-      {
-        product: 'https://via.placeholder.com/150',
-        name: 'sneakers',
-        price: 150,
-        quantity: 3,
-        id: 2
-      }
-    ]
-  };
+  cart: Cart = { items: [] };
 
   dataSource: Array<CartItem> = [];
   displayedColumns: Array<string> = [
@@ -38,7 +22,7 @@ export class CartComponent implements OnInit {
     'action'
   ]
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.cartService.cart.subscribe((_cart: Cart) => {
@@ -66,5 +50,4 @@ export class CartComponent implements OnInit {
   onRemoveQuantity(item: CartItem): void {
     this.cartService.removeQuantity(item);
   }
-
 }

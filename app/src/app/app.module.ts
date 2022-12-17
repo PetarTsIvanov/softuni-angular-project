@@ -26,6 +26,8 @@ import { CartComponent } from './pages/cart/cart.component';
 import { CartService } from './services/cart.service';
 import { StoreService } from './services/store.service';
 import { HttpClientModule } from '@angular/common/http';
+import { WishlistComponent } from './pages/wishlist/wishlist.component';
+import { WishlistService } from './services/wishlist.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     ProductsHeaderComponent,
     FiltersComponent,
     ProductBoxComponent,
-    CartComponent
+    CartComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatSnackBarModule,
     HttpClientModule
   ],
-  providers: [CartService, StoreService],
+  providers: [CartService, StoreService, WishlistService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
